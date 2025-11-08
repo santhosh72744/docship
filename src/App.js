@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
 
-
-
 function App() {
   const [shippingType, setShippingType] = useState('select');
   const [sourceCountry, setSourceCountry] = useState('select');
@@ -78,8 +76,7 @@ function App() {
   return (
     <>
       <header className='page-header'> Parcel My Box</header>
-
-
+    
       <div className="doc">
         <form onSubmit={handleSubmit} noValidate>
           <div className="dropdown">
