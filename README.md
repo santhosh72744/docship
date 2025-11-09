@@ -23,7 +23,7 @@ Allows user to  send documents from USA to India.
 
 ---
 
-## How to run locally :
+## How to run locally 
 
 # 1️⃣ Clone the repository
 git clone https://github.com/santhosh72744/docship.git
