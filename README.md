@@ -36,7 +36,7 @@ npm install
 
 # 4️⃣ Start the development server
 
-npm start       # (for Create React App)
+npm start       
 
 Open http://localhost:3000 to view it in your browser.
 
