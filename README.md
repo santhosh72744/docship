@@ -39,4 +39,22 @@ flowchart TD
   J --> K[Confirm]
   K --> L([End])
 
+How to run locally :
+
+# 1️⃣ Clone the repository
+git clone https://github.com/santhosh72744/docship.git
+cd docship
+
+# 2️⃣ Install dependencies
+npm install
+
+# 3️⃣ Start the development server
+
+npm start      
+
+ # 4️⃣ then open your browser:
+
+CRA → http://localhost:3000
+
+
 
