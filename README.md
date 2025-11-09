@@ -51,7 +51,7 @@ This project includes test cases to verify all input validations (ZIP, PIN, and 
 - If any field is empty → show “Enter all fields”
  
   
-- export const isValidZIP = (zip) => /^\d{5}$/.test(zip);
+- export const isValidZIP = (zip) => /^\d{5}$/.test(zip);   ##ZIP code must be 5 digits 
 - export const isValidPIN = (pin) => /^\d{6}$/.test(pin);
 - export const allFilled = (fields) => Object.values(fields).every(Boolean);
 ###  How to Run Tests
