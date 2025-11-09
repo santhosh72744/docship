@@ -46,13 +46,10 @@ This project includes test cases to verify all input validations (ZIP, PIN, and 
 
 ## Validations
   
-- export const isValidZIP = (zip) => /^\d{5}$/.test(zip);
 -  ZIP code must be 5 digits 
-- export const isValidPIN = (pin) => /^\d{6}$/.test(pin);
 -   PIN code must be 6 digits
-- export const allFilled = (fields) => Object.values(fields).every(Boolean);
 -   Every field must be filled
-- 
+
 ###  Run Tests
 
 npm test
