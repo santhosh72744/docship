@@ -15,11 +15,7 @@ Allows user to  send documents from USA to India.
 7.  Show price, currency, and number of days required  
 8.click on  Confirm
 
-## Validations
-- ZIP code must be 5 digits  
-- PIN code must be 6 digits  
-- Every field must be filled  
-- If any field is empty → show “Enter all fields”
+
 
 ---
 
