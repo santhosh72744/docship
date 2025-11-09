@@ -44,15 +44,16 @@ Open http://localhost:3000 to view it in your browser.
 
 
 
-##  Testing & Validation
+##  Testing & Validations
 
 This project includes test cases to verify all input validations (ZIP, PIN, and form fields).
 
-###  Validations 
--→ must be exactly **5 digits**
--  → must be exactly **6 digits**
--  All required fields must be filled
-
+## Validations
+- ZIP code must be 5 digits  
+- PIN code must be 6 digits  
+- Every field must be filled  
+- If any field is empty → show “Enter all fields”
+- 
 ###  How to Run Tests
 
 npm test
