@@ -26,19 +26,19 @@ Allows user to  send documents from USA to India.
 ## How to run locally 
 
 # 1️⃣ Clone the repository
-git clone https://github.com/santhosh72744/docship.git
+git clone https://github.com/santhosh72744/docship
+
+# 2️⃣ Move into the project directory
 cd docship
 
-# 2️⃣ Install dependencies
+# 3️⃣ Install dependencies
 npm install
 
-# 3️⃣ Start the development server
+# 4️⃣ Start the development server
 
-npm start      
+npm start       # (for Create React App)
 
- # 4️⃣ then open your browser:
-
-CRA → http://localhost:3000
+Open http://localhost:3000 to view it in your browser.
 
 ## Flow Diagram
  ```mermaid
