@@ -42,6 +42,23 @@ Open http://localhost:3000 to view it in your browser.
 
 ---
 
+
+
+##  Testing & Validation
+
+This project includes test cases to verify all input validations (ZIP, PIN, and form fields).
+
+###  Validations 
+-→ must be exactly **5 digits**
+-  → must be exactly **6 digits**
+-  All required fields must be filled
+
+###  How to Run Tests
+
+npm test
+
+---
+
 ## Flow Diagram
  ```mermaid
 flowchart TD
