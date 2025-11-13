@@ -1,175 +1,294 @@
-import React, { useState } from 'react';
-import './App.css';
-
-
+import React, { useState } from "react";
+import "./App.css";
+import CheckoutForm from "./CheckoutForm";
+import PaymentModal from "./PaymentModal";
+import ShippingLabel from "./ShippingLabel";
+import { validateInputs } from "./validations";
+import StepNavigator from "./stepNavigator";
 
 function App() {
-  const [shippingType, setShippingType] = useState('select');
-  const [sourceCountry, setSourceCountry] = useState('select');
-  const [zipCode, setZipCode] = useState('');
-  const [destinationCountry, setDestinationCountry] = useState('select');
-  const [pinCode, setPinCode] = useState('');
-  const [chooseCourier, setChooseCourier] = useState('select');
+  const [currentStep, setCurrentStep] = useState(1);
+
+  
+  const [shippingType, setShippingType] = useState("select");
+  const [sourceCountry, setSourceCountry] = useState("select");
+  const [zipCode, setZipCode] = useState("");
+  const [destinationCountry, setDestinationCountry] = useState("select");
+  const [pinCode, setPinCode] = useState("");
+  const [chooseCourier, setChooseCourier] = useState("select");
 
   const [errors, setErrors] = useState({});
   const [details, setDetails] = useState(null);
-  const [confirmMsg, setConfirmMsg] = useState('');
 
+  
+  const [pickup, setPickup] = useState({
+    name: "",
+    phone: "",
+    address1: "",
+    city: "",
+    state: "",
+    zip: "",
+  });
+
+  const [toAddr, setToAddr] = useState({
+    name: "",
+    phone: "",
+    address1: "",
+    city: "",
+   state: "",
+    pin: "",
+    aadhaar: "",
+  });
+
+ 
+  const [paymentForm, setPaymentForm] = useState({
+    cardNumber: "",
+    name: "",
+    expiry: "",
+    cvv: "",
+  });
+
+  const [trackingNumber, setTrackingNumber] = useState("");
+  const [paymentRef, setPaymentRef] = useState("");
+
+  //  reset function
+  const resetAll = () => {
+    setShippingType("select");
+    setSourceCountry("select");
+    setZipCode("");
+    setDestinationCountry("select");
+    setPinCode("");
+    setChooseCourier("select");
+
+    setErrors({});
+    setDetails(null);
+
+    setPickup({
+      name: "",
+      phone: "",
+      address1: "",
+      city: "",
+      state: "",
+      zip: "",
+    });
+
+    setToAddr({
+      name: "",
+      phone: "",
+      address1: "",
+      city: "",
+      state: "",
+      pin: "",
+      aadhaar: "",
+    });
+
+    setPaymentForm({
+      cardNumber: "",
+      name: "",
+      expiry: "",
+      cvv: "",
+    });
+
+    setTrackingNumber("");
+    setPaymentRef("");
+
+    setCurrentStep(1);
+  };
+
+  
   const handleZipChange = (e) => {
-    const v = e.target.value;
-    if (/^\d{0,5}$/.test(v)) setZipCode(v);
+    if (/^\d{0,5}$/.test(e.target.value)) setZipCode(e.target.value);
   };
 
   const handlePinChange = (e) => {
-    const v = e.target.value;
-    if (/^\d{0,6}$/.test(v)) setPinCode(v);
+    if (/^\d{0,6}$/.test(e.target.value)) setPinCode(e.target.value);
   };
 
-  const formatINR = (n) =>
-    new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(n);
-  const formatUSD = (n) =>
-    new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
-
+  
   const validate = () => {
-    const e = {};
-    if (shippingType === 'select') e.shippingType = 'Please select shipping type';
-    if (sourceCountry === 'select') e.sourceCountry = 'Please select source country';
-    if (!/^\d{5}$/.test(zipCode)) e.zipCode = 'Please enter a valid 5-digit ZIP code';
-    if (destinationCountry === 'select') e.destinationCountry = 'Please select destination country';
-    if (!/^\d{6}$/.test(pinCode)) e.pinCode = 'Please enter a valid 6-digit PIN code';
-    if (chooseCourier === 'select') e.chooseCourier = 'Please select a courier';
-    if (Object.keys(e).length) e.form = 'Please fill all fields correctly';
+    const { valid, errors: e } = validateInputs({
+      shippingType,
+      sourceCountry,
+      zipCode,
+      destinationCountry,
+      pinCode,
+      chooseCourier,
+    });
     setErrors(e);
-    return Object.keys(e).length === 0;
+    return valid;
   };
 
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    setDetails(null);
-    setConfirmMsg('');
-
     if (!validate()) return;
 
-    let priceINR = 0;
-  let days = 0;
-
-  if (chooseCourier === 'fedex') {
-    priceINR = 1200; // FedEx fixed price
-    days = 5;        // FedEx delivery days
-  } else if (chooseCourier === 'ups') {
-    priceINR = 1000; // UPS fixed price
-    days = 7;        // UPS delivery days
-  }
-
-  const USD_RATE = 84;
-  const priceUSD = priceINR / USD_RATE;
+    const priceINR = chooseCourier === "fedex" ? 1200 : 1000;
+    const days = chooseCourier === "fedex" ? 5 : 7;
+    const priceUSD = priceINR / 84;
 
     setDetails({ inr: priceINR, usd: priceUSD, days });
+    setCurrentStep(1.5);
   };
 
-  const handleConfirm = () => {
-    if (!details) return;
-    setConfirmMsg(
-      ` Booking confirmed with ${chooseCourier.toUpperCase()} for ${shippingType}. 
-       Price: ${formatINR(details.inr)} (${formatUSD(details.usd)}), ETA: ${details.days} days.`
-    );
+ 
+  const proceedToCheckout = () => {
+    setCurrentStep(2);
+  };
+
+ 
+  const handleCheckoutNext = () => {
+    setCurrentStep(3);
+  };
+
+  
+  const handlePaymentNext = () => {
+    const tracking = "PMB-" + Math.floor(100000000 + Math.random() * 900000000);
+    const payment = "PMB-PMT-" + Math.floor(10000000 + Math.random() * 90000000);
+
+    setTrackingNumber(tracking);
+    setPaymentRef(payment);
+
+    setCurrentStep(4);
+  };
+
+ 
+  const changeStep = (step) => {
+    if (step < currentStep) setCurrentStep(step);
   };
 
   return (
     <>
-      <header className='page-header'> Parcel My Box</header>
+      <header className="page-header">Parcel My Box</header>
 
+      <StepNavigator currentStep={currentStep} onStepClick={changeStep} />
 
       <div className="doc">
-        <form onSubmit={handleSubmit} noValidate>
-          <div className="dropdown">
-            <label>Type of Shipping: </label>
-            <select value={shippingType} onChange={(e) => setShippingType(e.target.value)}>
-              <option value="select">Select</option>
-              <option value="document">Document</option>
-            </select>
-            {errors.shippingType && <p className="error">{errors.shippingType}</p>}
-          </div>
+        <hr style={{ margin: "24px 0" }} />
 
-          <div className="source">
-            <label>Select Source Country: </label>
-            <select value={sourceCountry} onChange={(e) => setSourceCountry(e.target.value)}>
-              <option value="select">Select</option>
-              <option value="USA">USA</option>
-            </select>
-            {errors.sourceCountry && <p className="error">{errors.sourceCountry}</p>}
-          </div>
-
-          <div className="zipcode">
-            <label>Zip Code: </label>
-            <input
-              type="text"
-              value={zipCode}
-              onChange={handleZipChange}
-              placeholder="Enter 5-digit zip code"
-              maxLength="5"
-            />
-            {errors.zipCode && <p className="error">{errors.zipCode}</p>}
-          </div>
-
-          <div className="destination">
-            <label>Select Destination Country: </label>
-            <select
-              value={destinationCountry}
-              onChange={(e) => setDestinationCountry(e.target.value)}
-            >
-              <option value="select">Select</option>
-              <option value="india">INDIA</option>
-            </select>
-            {errors.destinationCountry && <p className="error">{errors.destinationCountry}</p>}
-          </div>
-
-          <div className="pincode">
-            <label>Pin Code: </label>
-            <input
-              type="text"
-              value={pinCode}
-              onChange={handlePinChange}
-              placeholder="Enter 6-digit pin code"
-              maxLength="6"
-            />
-            {errors.pinCode && <p className="error">{errors.pinCode}</p>}
-          </div>
-
-          <div className="courier">
-            <label>Select Courier: </label>
-            <select value={chooseCourier} onChange={(e) => setChooseCourier(e.target.value)}>
-              <option value="select">Select</option>
-              <option value="fedex">FedEx</option>
-              <option value="ups">UPS</option>
-            </select>
-            {errors.chooseCourier && <p className="error">{errors.chooseCourier}</p>}
-          </div>
-
-          {errors.form && <p className="error" style={{ fontWeight: 600 }}>{errors.form}</p>}
-
-          <button type="submit">Submit</button>
-        </form>
-
-        {details && (
-          <>
-            <div className="details">
-              <h3>Details:</h3>
-              <p>Price (INR): <strong>{formatINR(details.inr)}</strong></p>
-              <p>Price (USD): <strong>{formatUSD(details.usd)}</strong></p>
-              <p>Estimated Days: <strong>{details.days} days</strong></p>
+       
+        {currentStep === 1 && (
+          <form onSubmit={handleSubmit} noValidate>
+            <div className="dropdown">
+              <label>Type of Shipping:</label>
+              <select
+                value={shippingType}
+                onChange={(e) => setShippingType(e.target.value)}
+              >
+                <option value="select">Select</option>
+                <option value="document">Document</option>
+              </select>
+              {errors.shippingType && <p className="error">{errors.shippingType}</p>}
             </div>
 
-            <button  onClick={handleConfirm} className="confirm-btn">
-              Confirm
-            </button>
-          </>
+            <div className="source">
+              <label>Select Source Country:</label>
+              <select
+                value={sourceCountry}
+                onChange={(e) => setSourceCountry(e.target.value)}
+              >
+                <option value="select">Select</option>
+                <option value="USA">USA</option>
+              </select>
+            </div>
+
+            <div className="zipcode">
+              <label>Zip Code:</label>
+              <input
+                value={zipCode}
+                onChange={handleZipChange}
+                placeholder="Enter 5-digit zip code"
+                maxLength="5"
+              />
+            </div>
+
+            <div className="destination">
+              <label>Select Destination Country:</label>
+              <select
+                value={destinationCountry}
+                onChange={(e) => setDestinationCountry(e.target.value)}
+              >
+                <option value="select">Select</option>
+                <option value="india">INDIA</option>
+              </select>
+            </div>
+
+            <div className="pincode">
+              <label>Pin Code:</label>
+              <input
+                value={pinCode}
+                onChange={handlePinChange}
+                placeholder="Enter 6-digit pin code"
+                maxLength="6"
+              />
+            </div>
+
+            <div className="courier">
+              <label>Select Courier:</label>
+              <select
+                value={chooseCourier}
+                onChange={(e) => setChooseCourier(e.target.value)}
+              >
+                <option value="select">Select</option>
+                <option value="fedex">FedEx</option>
+                <option value="ups">UPS</option>
+              </select>
+            </div>
+
+            <button type="submit">Get estimate</button>
+          </form>
         )}
 
-        {confirmMsg && (
-          <div className="details" role="status" aria-live="polite">
-            {confirmMsg}
+       
+        {currentStep === 1.5 && details && (
+          <div className="estimate-summary">
+            <h3>Shipment Estimate</h3>
+            <p><strong>Courier:</strong> {chooseCourier.toUpperCase()}</p>
+            <p><strong>From:</strong> {sourceCountry} – {zipCode}</p>
+            <p><strong>To:</strong> India – {pinCode}</p>
+            <p><strong>Delivery Days:</strong> {details.days} days</p>
+
+            <h2>Price: ₹{details.inr} / ${details.usd.toFixed(2)}</h2>
+
+            <button onClick={proceedToCheckout}>Confirm & Continue</button>
           </div>
+        )}
+
+       
+        {currentStep === 2 && (
+          <CheckoutForm
+            pickup={pickup}
+            setPickup={setPickup}
+            toAddr={toAddr}
+            setToAddr={setToAddr}
+            onNext={handleCheckoutNext}
+            price={details.inr}
+            courier={chooseCourier}
+          />
+        )}
+
+   
+        {currentStep === 3 && (
+          <PaymentModal
+            amount={details?.inr}
+            form={paymentForm}
+            setForm={setPaymentForm}
+            onBack={() => setCurrentStep(2)}
+            onNext={handlePaymentNext}
+          />
+        )}
+
+       
+        {currentStep === 4 && (
+          <ShippingLabel
+            amount={details?.inr}
+            courier={chooseCourier}
+            pickup={pickup}
+            toAddr={toAddr}
+            trackingNumber={trackingNumber}
+            paymentRef={paymentRef}
+            onFinish={resetAll}
+          />
         )}
       </div>
     </>

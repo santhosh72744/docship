@@ -1,0 +1,50 @@
+.step-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin: 25px 0;
+}
+
+.step-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.step-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 30px;
+  background: #f4f4f6;
+  color: #777;
+  font-size: 14px;
+  cursor: default;
+  transition: all 0.25s ease;
+}
+
+.step-btn svg {
+  font-size: 15px;
+}
+
+.step-btn.active {
+  background: #3a7afe;
+  color: white;
+  box-shadow: 0px 4px 10px rgba(58, 122, 254, 0.35);
+}
+
+.step-btn.clickable {
+  cursor: pointer;
+}
+
+.step-btn.clickable:hover {
+  background: #e9ecf3;
+}
+
+.step-arrow {
+  color: #c7c7c7;
+  font-size: 18px;
+  font-weight: bold;
+}

@@ -1,0 +1,40 @@
+.address-parser {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.address-parser h2 {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.address-parser textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.address-parser button {
+  background: #000000;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.address-parser button:hover {
+  background: #5e5f61;
+}
+
+.address-parser button + button {
+  background: #6b7280;
+}
+
+.address-parser button + button:hover {
+  background: #4b5563;
+}
