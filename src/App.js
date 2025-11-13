@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import "./App.css";
 import CheckoutForm from "./CheckoutForm";
@@ -5,6 +6,10 @@ import PaymentModal from "./PaymentModal";
 import ShippingLabel from "./ShippingLabel";
 import { validateInputs } from "./validations";
 import StepNavigator from "./stepNavigator";
+=======
+import React, { useState } from 'react';
+import './App.css';
+>>>>>>> 4f0288bdc30fe2a661437b116f79a18201715a0e
 
 function App() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -159,10 +164,15 @@ function App() {
 
   return (
     <>
+<<<<<<< HEAD
       <header className="page-header">Parcel My Box</header>
 
       <StepNavigator currentStep={currentStep} onStepClick={changeStep} />
 
+=======
+      <header className='page-header'> Parcel My Box</header>
+    
+>>>>>>> 4f0288bdc30fe2a661437b116f79a18201715a0e
       <div className="doc">
         <hr style={{ margin: "24px 0" }} />
 
