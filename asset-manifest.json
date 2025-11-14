@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/DocShip/static/css/main.a14769c4.css",
-    "main.js": "/DocShip/static/js/main.edf282fd.js",
+    "main.css": "/DocShip/static/css/main.3fdb7b6f.css",
+    "main.js": "/DocShip/static/js/main.c82be2f5.js",
     "static/js/977.65522b7f.chunk.js": "/DocShip/static/js/977.65522b7f.chunk.js",
     "static/js/455.29542c2b.chunk.js": "/DocShip/static/js/455.29542c2b.chunk.js",
     "static/js/453.4f253464.chunk.js": "/DocShip/static/js/453.4f253464.chunk.js",
     "index.html": "/DocShip/index.html",
-    "main.a14769c4.css.map": "/DocShip/static/css/main.a14769c4.css.map",
-    "main.edf282fd.js.map": "/DocShip/static/js/main.edf282fd.js.map",
+    "main.3fdb7b6f.css.map": "/DocShip/static/css/main.3fdb7b6f.css.map",
+    "main.c82be2f5.js.map": "/DocShip/static/js/main.c82be2f5.js.map",
     "977.65522b7f.chunk.js.map": "/DocShip/static/js/977.65522b7f.chunk.js.map",
     "455.29542c2b.chunk.js.map": "/DocShip/static/js/455.29542c2b.chunk.js.map",
     "453.4f253464.chunk.js.map": "/DocShip/static/js/453.4f253464.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a14769c4.css",
-    "static/js/main.edf282fd.js"
+    "static/css/main.3fdb7b6f.css",
+    "static/js/main.c82be2f5.js"
   ]
 }
