@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
 import "./App.css";
 import CheckoutForm from "./CheckoutForm";
@@ -6,15 +5,10 @@ import PaymentModal from "./PaymentModal";
 import ShippingLabel from "./ShippingLabel";
 import { validateInputs } from "./validations";
 import StepNavigator from "./stepNavigator";
-=======
-import React, { useState } from 'react';
-import './App.css';
->>>>>>> 4f0288bdc30fe2a661437b116f79a18201715a0e
 
 function App() {
   const [currentStep, setCurrentStep] = useState(1);
 
-  
   const [shippingType, setShippingType] = useState("select");
   const [sourceCountry, setSourceCountry] = useState("select");
   const [zipCode, setZipCode] = useState("");
@@ -25,7 +19,6 @@ function App() {
   const [errors, setErrors] = useState({});
   const [details, setDetails] = useState(null);
 
-  
   const [pickup, setPickup] = useState({
     name: "",
     phone: "",
@@ -40,12 +33,11 @@ function App() {
     phone: "",
     address1: "",
     city: "",
-   state: "",
+    state: "",
     pin: "",
     aadhaar: "",
   });
 
- 
   const [paymentForm, setPaymentForm] = useState({
     cardNumber: "",
     name: "",
@@ -56,7 +48,6 @@ function App() {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [paymentRef, setPaymentRef] = useState("");
 
-  //  reset function
   const resetAll = () => {
     setShippingType("select");
     setSourceCountry("select");
@@ -100,7 +91,6 @@ function App() {
     setCurrentStep(1);
   };
 
-  
   const handleZipChange = (e) => {
     if (/^\d{0,5}$/.test(e.target.value)) setZipCode(e.target.value);
   };
@@ -109,7 +99,6 @@ function App() {
     if (/^\d{0,6}$/.test(e.target.value)) setPinCode(e.target.value);
   };
 
-  
   const validate = () => {
     const { valid, errors: e } = validateInputs({
       shippingType,
@@ -123,7 +112,6 @@ function App() {
     return valid;
   };
 
-  
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
@@ -136,20 +124,18 @@ function App() {
     setCurrentStep(1.5);
   };
 
- 
   const proceedToCheckout = () => {
     setCurrentStep(2);
   };
 
- 
   const handleCheckoutNext = () => {
     setCurrentStep(3);
   };
 
-  
   const handlePaymentNext = () => {
     const tracking = "PMB-" + Math.floor(100000000 + Math.random() * 900000000);
-    const payment = "PMB-PMT-" + Math.floor(10000000 + Math.random() * 90000000);
+    const payment =
+      "PMB-PMT-" + Math.floor(10000000 + Math.random() * 90000000);
 
     setTrackingNumber(tracking);
     setPaymentRef(payment);
@@ -157,26 +143,19 @@ function App() {
     setCurrentStep(4);
   };
 
- 
   const changeStep = (step) => {
     if (step < currentStep) setCurrentStep(step);
   };
 
   return (
     <>
-<<<<<<< HEAD
       <header className="page-header">Parcel My Box</header>
 
       <StepNavigator currentStep={currentStep} onStepClick={changeStep} />
 
-=======
-      <header className='page-header'> Parcel My Box</header>
-    
->>>>>>> 4f0288bdc30fe2a661437b116f79a18201715a0e
       <div className="doc">
         <hr style={{ margin: "24px 0" }} />
 
-       
         {currentStep === 1 && (
           <form onSubmit={handleSubmit} noValidate>
             <div className="dropdown">
@@ -188,7 +167,9 @@ function App() {
                 <option value="select">Select</option>
                 <option value="document">Document</option>
               </select>
-              {errors.shippingType && <p className="error">{errors.shippingType}</p>}
+              {errors.shippingType && (
+                <p className="error">{errors.shippingType}</p>
+              )}
             </div>
 
             <div className="source">
@@ -249,22 +230,30 @@ function App() {
           </form>
         )}
 
-       
         {currentStep === 1.5 && details && (
           <div className="estimate-summary">
             <h3>Shipment Estimate</h3>
-            <p><strong>Courier:</strong> {chooseCourier.toUpperCase()}</p>
-            <p><strong>From:</strong> {sourceCountry} – {zipCode}</p>
-            <p><strong>To:</strong> India – {pinCode}</p>
-            <p><strong>Delivery Days:</strong> {details.days} days</p>
+            <p>
+              <strong>Courier:</strong> {chooseCourier.toUpperCase()}
+            </p>
+            <p>
+              <strong>From:</strong> {sourceCountry} – {zipCode}
+            </p>
+            <p>
+              <strong>To:</strong> India – {pinCode}
+            </p>
+            <p>
+              <strong>Delivery Days:</strong> {details.days} days
+            </p>
 
-            <h2>Price: ₹{details.inr} / ${details.usd.toFixed(2)}</h2>
+            <h2>
+              Price: ₹{details.inr} / ${details.usd.toFixed(2)}
+            </h2>
 
             <button onClick={proceedToCheckout}>Confirm & Continue</button>
           </div>
         )}
 
-       
         {currentStep === 2 && (
           <CheckoutForm
             pickup={pickup}
@@ -277,7 +266,6 @@ function App() {
           />
         )}
 
-   
         {currentStep === 3 && (
           <PaymentModal
             amount={details?.inr}
@@ -288,7 +276,6 @@ function App() {
           />
         )}
 
-       
         {currentStep === 4 && (
           <ShippingLabel
             amount={details?.inr}

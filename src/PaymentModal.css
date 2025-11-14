@@ -1,99 +1,94 @@
-
-.modal,
-.payment-container {
-  all: unset;
-}
-
-
-.payment-modal-card {
-  all: unset;
-}
-
-
-
+/* --- Payment Step Container --- */
 .payment-step {
-  background: #fff;
-  padding: 25px;
-  border: 1px solid #e1e1e1;
-  border-radius: 12px;
-  max-width: 700px;
+  padding: 20px 0;
+}
+
+.step-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #1f2937;
+  padding-bottom: 5px;
+}
+
+.amount-info {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #059669; /* Matches app primary green */
+  margin-bottom: 25px;
+  padding: 10px;
+  background: #ecfdf5; /* Light green background for prominence */
+  border-radius: 6px;
+  text-align: center;
+}
+
+/* --- Payment Form Styling --- */
+.payment-form {
+  max-width: 450px; /* Center the form content and make it look like a typical card form */
   margin: 0 auto;
 }
 
-
-.step-title {
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 18px;
-  color: #111;
-}
-
-
-.amount-info {
-  font-size: 15px;
-  margin-bottom: 20px;
-  color: #444;
-}
-
-
-.payment-form label {
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-  margin-bottom: 12px;
+/* Labels and Inputs (inherited styles will apply, but fine-tuning here) */
+label {
+  display: block;
+  margin-bottom: 8px;
   font-weight: 500;
-}
-
-.payment-form input {
-  width: 100%;
-  padding: 10px 12px;
-  margin-top: 6px;
-  border: 1px solid #bfbfbf;
-  border-radius: 8px;
+  color: #374151;
   font-size: 14px;
-  transition: 0.2s ease;
 }
 
-.payment-form input:focus {
-  border-color: #000;
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 16px; /* Space between inputs */
+  box-sizing: border-box;
+}
+
+input:focus {
   outline: none;
+  border-color: #000;
+  box-shadow: 0 0 0 1px #000;
 }
 
-
+/* Error messages */
 .error {
-  color: red;
-  font-size: 12px;
-  margin-top: 4px;
+  color: #dc2626;
+  font-size: 13px;
+  margin-top: -12px;
+  margin-bottom: 16px;
+  padding-left: 4px;
 }
 
-
+/* --- Actions/Buttons Section --- */
 .actions {
   display: flex;
-  justify-content: space-between;
-  margin-top: 25px;
+  justify-content: flex-end; /* Align buttons to the right */
   gap: 12px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
 }
 
-.actions button {
-  flex: 1;
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  transition: 0.2s ease-in-out;
+/* Back button */
+.actions button:first-child {
+    background-color: #e5e7eb;
+    color: #4b5563;
 }
 
-button:hover {
-  opacity: 0.85;
+.actions button:first-child:hover {
+    background-color: #d1d5db;
 }
 
+/* Pay Now / Continue to Label button (using the 'sub' class) */
 button.sub {
-  background-color: #000;
+  background-color: #000000;
   color: white;
+  font-weight: 600;
 }
 
 button.sub:hover {
-  background-color: #333;
+  background-color: #374151;
 }

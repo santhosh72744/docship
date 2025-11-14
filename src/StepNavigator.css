@@ -1,50 +1,59 @@
+/* --- Main Navigation Container --- */
 .step-nav {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 25px;
-  margin: 25px 0;
+  align-items: center;
+  margin-top: 20px;
+  background: #fff;
+  padding: 15px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px;
 }
 
 .step-wrapper {
   display: flex;
   align-items: center;
-  gap: 12px;
 }
 
+/* --- Individual Step Buttons --- */
 .step-btn {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 18px;
-  border-radius: 30px;
-  background: #f4f4f6;
-  color: #777;
+  padding: 8px 16px;
+  border-radius: 4px;
   font-size: 14px;
-  cursor: default;
-  transition: all 0.25s ease;
+  font-weight: 500;
+  color: #9ca3af; /* Default gray for inactive steps */
+  background: transparent;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  cursor: default; /* Default cursor for steps that aren't clickable yet */
 }
 
-.step-btn svg {
-  font-size: 15px;
-}
-
+/* --- Styling for the Current Step --- */
 .step-btn.active {
-  background: #3a7afe;
-  color: white;
-  box-shadow: 0px 4px 10px rgba(58, 122, 254, 0.35);
+  color: #fff;
+  background-color: #059669; /* Primary app green for active step */
+  box-shadow: 0 2px 5px rgba(5, 150, 105, 0.3);
 }
 
+/* --- Styling for Completed (Clickable) Steps --- */
 .step-btn.clickable {
-  cursor: pointer;
+  color: #1f2937; /* Darker text for completed steps */
+  cursor: pointer; /* Pointer cursor for steps a user can navigate back to */
 }
 
-.step-btn.clickable:hover {
-  background: #e9ecf3;
+.step-btn.clickable:hover:not(.active) {
+  background-color: #f3f4f6; /* Subtle hover effect for completed steps */
 }
 
+/* --- Separator Arrow --- */
 .step-arrow {
-  color: #c7c7c7;
-  font-size: 18px;
-  font-weight: bold;
+  color: #d1d5db; /* Light gray arrow */
+  margin: 0 10px;
+  font-size: 1.5rem;
+  font-weight: 200;
 }

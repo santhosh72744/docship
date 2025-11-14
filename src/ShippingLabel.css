@@ -1,271 +1,266 @@
-
+/* --- Global Label Wrapper & Page Structure --- */
 .label-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+  padding: 20px 0;
+  font-family: Arial, sans-serif;
 }
 
+/* --- The Main Label Container (Print Area) --- */
 .label-container {
-  width: 700px;
-  background: #fff;
-  border: 3px solid #000;
-  padding: 18px;
-  
-  font-size: 11px;
-  line-height: 14px;
-  position: relative;
+  display: grid;
+  /* Defining the grid areas for layout */
+  grid-template-areas:
+    "header header header"
+    "to-block to-block to-block"
+    "barcode barcode courier-box"
+    "qr tracking-big side-info"
+    "amount-area amount-area amount-area";
+  grid-template-columns: 1fr 2fr 1fr; /* Adjust column widths as needed */
+  gap: 15px; /* Spacing between grid items */
+  border: 2px solid #000;
+  padding: 20px;
+  background: white;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.row.header {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #000;
-  padding-bottom: 8px;
-  margin-bottom: 8px;
-}
-
-.header .left {
-  width: 60%;
-}
-
-.header .right {
-  width: 40%;
-  text-align: right;
+/* Base styles for text within the label */
+.label-container p {
+  margin: 0 0 4px 0;
+  font-size: 13px;
+  line-height: 1.3;
 }
 
 .bold {
   font-weight: bold;
 }
 
-
-.to-block {
-  border-bottom: 1px solid #000;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-}
-
-.to-block .small {
-  font-size: 10px;
-}
-
-.to-block .big {
-  font-size: 15px;
-  font-weight: bold;
-}
-
-.ref {
-  margin-top: 6px;
-}
-
-
-.barcode-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  
-  padding-bottom: 6px;
-  margin-bottom: 8px;
-  
-}
-
-.barcode-area {
-  flex: 1;
-  margin-right: 10px;
-}
-
-svg {
-  width: 100%;
-  height: 65px;
-}
-
-
-.courier-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-width: 90px;
-  margin-top: 10px;
-}
-
-.courier-name {
-  font-weight: bold;
-  font-size: 10px;
-  margin-bottom: 20px;
-
-}
-
-.service-code {
-  border: 1px solid #000;
-  padding: 2px 8px;
-  font-size: 25px;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
-
-.qr {
-  position: absolute;
-  top: 200px;
-  right: 20px;
-}
-
-
-.tracking-big {
-  margin-top: 15px;
-}
-
-.tracking-big .trk {
-  font-size: 10px;
-  margin-bottom: 3px;
-}
-
-.big-num {
-  font-size: 30px;
-  font-weight: bold;
-  margin: 0;
-  line-height: 28px;
-}
-
-.big-code {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 0;
-}
-
-
-.side-info {
-  position: absolute;
-  right: 20px;
-  bottom: 140px;
-  text-align: right;
-}
-
-.side-info p {
-  margin: 0;
-  line-height: 12px;
-}
-
-.side-info .zip {
-  font-size: 14px;
-  font-weight: bold;
-  margin-top: 6px;
-}
-
-
-.amount-area {
-  margin-top: 22px;
-  font-size: 12px;
-}
-
-.amount-area .amt {
+.big {
   font-size: 16px;
-  font-weight: bold;
-}
-
-.bottom-buttons {
-  margin-top: 20px;
-}
-
-.bottom-buttons .done {
-  padding: 8px 18px;
-  background: black;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.bottom-buttons .done:hover {
-  background: #333;
-}
-.bottom-buttons {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 20px;
-}
-
-.bottom-buttons button {
-  padding: 8px 18px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  font-family: monospace;
-}
-
-.bottom-buttons .download {
-  background: #000;
-  color: white;
-}
-
-.bottom-buttons .done {
-  background: #444;
-  color: white;
-}
-
-.success-box {
-  margin-top: 20px;
-  padding: 24px;
-  border-radius: 10px;
-  background: #f0fdf4;          
-  border: 1px solid #86efac;    
-  text-align: center;
-  animation: fadeIn 0.4s ease;
-}
-
-.success-box h2 {
-  font-size: 20px;
-  color: #15803d;                
-  margin-bottom: 8px;
   font-weight: 700;
 }
 
+.small {
+    font-size: 11px;
+    color: #555;
+}
+
+
+/* --- Grid Area Assignments --- */
+.header { grid-area: header; }
+.to-block { grid-area: to-block; }
+.barcode-row { grid-area: barcode; } /* Note: barcode is a flex item within this row div */
+.courier-box { grid-area: courier-box; }
+.qr { grid-area: qr; }
+.tracking-big { grid-area: tracking-big; }
+.side-info { grid-area: side-info; }
+.amount-area { grid-area: amount-area; }
+
+
+/* --- Header Section (Sender Info, Ship Date) --- */
+.row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.header .left {
+    flex: 2;
+}
+
+.header .right {
+    flex: 1;
+    text-align: right;
+}
+
+
+/* --- To Address Block --- */
+.to-block {
+  border-bottom: 2px solid #000;
+  padding-bottom: 15px;
+}
+
+.ref {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #555;
+}
+
+
+/* --- Barcode and Courier Block --- */
+.barcode-row {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+}
+
+/* SVG is handled by JsBarcode */
+
+.courier-box {
+    text-align: center;
+    border-left: 1px solid #eee;
+    padding-left: 10px;
+}
+
+.courier-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #059669; /* Primary app green */
+}
+
+.service-code {
+    font-size: 24px;
+    font-weight: 900;
+    color: #333;
+}
+
+
+/* --- QR Code, Tracking, Side Info --- */
+.qr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.tracking-big {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid #eee;
+    padding-left: 10px;
+}
+
+.trk {
+    font-size: 10px;
+    margin-bottom: 0;
+}
+
+.big-num {
+    font-size: 28px;
+    font-weight: 800;
+    margin-top: 0;
+}
+
+.big-code {
+    font-size: 14px;
+}
+
+.side-info {
+    text-align: right;
+    border-left: 1px solid #eee;
+    padding-left: 10px;
+}
+
+.zip {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+
+/* --- Amount Area --- */
+.amount-area {
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    text-align: right;
+}
+
+.amt {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+}
+
+
+/* --- Bottom Buttons (Download/Done) --- */
+.bottom-buttons {
+  text-align: center;
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.download, .done {
+    padding: 12px 25px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.download {
+    background: #000000;
+    color: white;
+}
+
+.download:hover {
+    background: #333;
+}
+
+.done {
+    background: #059669; /* Primary app green */
+    color: white;
+}
+
+.done:hover {
+    background: #047857;
+}
+
+
+/* --- Success Box (Modal/Overlay look) --- */
+.success-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 30px auto;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #eee;
+}
+
+.success-box h2 {
+    color: #059669;
+    margin-bottom: 15px;
+}
+
 .success-box p {
-  font-size: 14px;
-  color: #166534;
-  margin-bottom: 18px;
+    color: #4b5563;
+    margin-bottom: 20px;
 }
 
 .success-actions {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
-.success-actions button {
-  padding: 10px 18px;
-  font-size: 14px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  transition: 0.2s;
+.close-btn, .new-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
-
-.success-actions .close-btn {
-  background: #d1d5db;           
-  color: #111;
+.close-btn {
+    background: #e5e7eb;
+    color: #374151;
 }
 
-.success-actions .close-btn:hover {
-  background: #bfc4ca;
+.close-btn:hover {
+    background: #d1d5db;
 }
 
-
-.success-actions .new-btn {
-  background: #000;
-  color: #fff;
+.new-btn {
+    background: #000;
+    color: white;
 }
 
-.success-actions .new-btn:hover {
-  background: #333;
-}
-
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+.new-btn:hover {
+    background: #333;
 }
