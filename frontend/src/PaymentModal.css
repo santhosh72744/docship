@@ -1,0 +1,142 @@
+/* ---------------------------------------------------------------------
+ * UTILITY VARIABLES (Replicating App.css context)
+ * --------------------------------------------------------------------- */
+:root {
+  --color-primary: #4f46e5; /* Indigo */
+  --color-primary-dark: #4338ca;
+  --color-success: #10b981; /* Emerald */
+  --color-text: #1f2937;
+  --color-text-light: #4b5563;
+  --color-bg-light: #f9fafb;
+  --color-border: #e5e7eb;
+  --color-error: #ef4444;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+}
+
+/* ---------------------------------------------------------------------
+ * MAIN MODAL CONTAINER
+ * We make the modal content narrow and centered for focus.
+ * --------------------------------------------------------------------- */
+
+.payment-step {
+  max-width: 500px; /* Narrower than the CheckoutForm for focus */
+  margin: var(--spacing-lg) auto;
+  padding: var(--spacing-lg);
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-border);
+}
+
+.step-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+}
+
+/* Style for successful payment state */
+.payment-step h2.step-title:first-child {
+    color: var(--color-success);
+}
+
+.amount-info {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-text);
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  background-color: var(--color-bg-light);
+  border-radius: 0.5rem;
+}
+
+/* ---------------------------------------------------------------------
+ * PAYMENT FORM STYLES
+ * --------------------------------------------------------------------- */
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.payment-form label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-light);
+}
+
+.payment-form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+  background-color: var(--color-bg-light);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.payment-form input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+/* Error style for consistency */
+.error {
+  color: var(--color-error);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+/* ---------------------------------------------------------------------
+ * ACTIONS (Buttons)
+ * --------------------------------------------------------------------- */
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.actions button {
+  flex: 1;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 2px solid var(--color-border);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* Back Button */
+.actions button:not(.sub) {
+  background-color: white;
+  color: var(--color-text-light);
+}
+
+.actions button:not(.sub):hover {
+  background-color: var(--color-bg-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Pay Now / Continue Button */
+.actions button.sub {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary-dark);
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+}
+
+.actions button.sub:hover {
+  background-color: var(--color-primary-dark);
+}
