@@ -12,7 +12,7 @@ Estimation – User enters ZIP/PIN + courier → backend returns price & deliver
 
 Address Collection – User pastes an address (auto-parsed) or enters data manually
 
-Payment – User submits card details → backend stores payment & generates ref ID
+Payment – User submits card details → backend stores payment & generates a payment reference
 
 Shipping Label – Final label shows tracking number, payment reference, and shipment summary
 
@@ -29,15 +29,17 @@ PIN (India, 6 digits)
 
 Courier selection (FedEx / UPS)
 
-Backend validates ZIP & PIN.
+Backend:
 
-Backend returns:
+Validates ZIP & PIN
 
-price in INR
+Returns:
 
-Delivered days (5 days FedEx, 7 days UPS)
+Price in INR
 
-Frontend stores estimation data and moves to next step.
+Delivery days (5 days FedEx, 7 days UPS)
+
+Frontend stores estimation data and advances to the next step.
 
 2.2 Address Input + Auto Parser
 
@@ -59,11 +61,11 @@ City
 
 State
 
-ZIP or PIN
+ZIP/PIN
 
-Aadhaar (if included)
+Aadhaar (if present)
 
-Works for:
+Works for both:
 
 U.S. pickup addresses
 
@@ -73,9 +75,9 @@ All extracted values populate the form automatically.
 
 Manual Entry
 
-Users can still type everything manually.
+All fields remain editable
 
-Parsed values are always editable.
+Users can override parser output or type from scratch
 
 2.3 Payment Collection
 
@@ -83,31 +85,33 @@ Payment form collects:
 
 Card Number
 
-Cardholder Name
+Name on Card
 
 Expiry
 
 CVV
 
-Backend saves payment details together with:
+Backend saves:
 
-Shipment tracking number
+Tracking number (from shipment save)
 
-Payment amount
+Amount
+
+Card data (prototype only)
 
 Backend returns:
 
-paymentRef (unique payment reference ID)
+paymentRef (unique reference ID)
 
-Frontend stores reference + moves to the label step.
+Frontend stores the reference and moves to the label step.
 
 2.4 Shipping Label Generation
 
-On the final step, DocShip displays:
+Final label displays:
 
-Courier
+Courier (FedEx/UPS)
 
-Price (INR)
+Price in INR
 
 Delivery days
 
@@ -115,46 +119,44 @@ Pickup Address
 
 Destination Address
 
-Tracking Number (from shipment save)
+Tracking Number
 
-Payment Reference (from payment save)
+Payment Reference
 
-User clicks Finish, which:
+Clicking Finish:
 
-Runs resetAll()
+Clears all app state
 
-Clears all React state
+Removes localStorage (docshipData)
 
-Clears LocalStorage (docshipData)
-
-Returns the app to Step 1
+Returns to Step 1
 
 3. Architecture
 Frontend (React)
 
-Uses functional components + hooks
+Functional components with hooks
 
-Lives entirely in frontend/src/
+LocalStorage mirrors full app state
 
-LocalStorage mirrors full app state for refresh recovery
+Key files:
 
-Key components:
+App.js
 
-App.js – step controller + persistence + reset logic
+CheckoutForm.js
 
-CheckoutForm.js – pickup/delivery address + parser
+PaymentModal.js
 
-PaymentModal.js – card entry
+ShippingLabel.js
 
-ShippingLabel.js – final shipment summary
+stepNavigator.js
 
-stepNavigator.js – wizard steps UI
+validations.js
 
-validations.js – input validations
+addressParser.js
 
 Backend (Node.js + Express)
 
-Lightweight JSON-based storage:
+JSON-based storage:
 
 shipments.json
 
@@ -162,65 +164,65 @@ payments.json
 
 Responsibilities:
 
-ZIP + PIN validation
+Validate ZIP & PIN
 
-Price estimation
+Estimate price
 
-Shipment saving (generates tracking)
+Save shipment (generate tracking)
 
-Payment saving (generates payment reference)
+Save payment (generate reference)
 
 4. API Reference
 POST /api/estimate
 
-Returns shipping price + estimated days.
+Returns price + delivery days.
 
 POST /api/save-shipment
 
-Creates shipment entry and returns tracking.
+Creates a shipment record, returns:
+
+{ "tracking": "DS123456" }
 
 POST /api/save-payment
 
-Creates payment entry and returns paymentRef.
+Saves payment, returns:
+
+{ "paymentRef": "PMT99881" }
 
 5. State Persistence
 
-DocShip keeps all progress in:
+All progress is saved in:
 
 localStorage["docshipData"]
 
 
-Contents include:
+Including:
 
 Current step
 
-Estimate details
-
-Pickup address
-
-Destination address
+Pickup & destination data
 
 Payment form
+
+Estimate results
 
 Tracking number
 
 Payment reference
 
-This ensures the user never loses progress on refresh.
+Refresh never loses progress.
 
 6. Reset Logic
 
-The resetAll() function:
+resetAll():
 
-Clears shipping fields
+Clears all form values
 
-Clears address and payment fields
+Clears estimate, shipment, and payment data
 
-Removes docshipData from LocalStorage
+Removes docshipData
 
-Resets step to 1
-
-Used after completing a shipment or when the user manually restarts.
+Returns to Step 1
 
 7. Folder Structure
 docship/
@@ -245,13 +247,10 @@ docship/
 
 8. Developer Notes
 
-JSON database can be swapped for MongoDB or PostgreSQL easily
+JSON DB can be replaced with MongoDB/PostgreSQL
 
-Estimation logic currently uses static delivery days – ready for real courier API integration
+Estimation is currently static and can be integrated with real courier APIs
 
-Address parser can be extended with more regex or AI-based parsing
+Parser can be extended with regex/NLP
 
-Supports only document shipping now but structure supports parcels too
-User accounts + shipment history
-
-Email/SMS notifications
+Parcel shipping can be added later
