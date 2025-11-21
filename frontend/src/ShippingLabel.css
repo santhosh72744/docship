@@ -247,6 +247,7 @@
     width: 100%;
     max-width: 450px;
     padding-top: 10px;
+
 }
 
 .download, .done {
@@ -258,11 +259,14 @@
     font-weight: 700;
     transition: background-color 0.2s, transform 0.1s;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    background-color: #1d4ed8;
+    color: black;
 }
 
 .download {
     background-color: var(--primary-blue);
     color: white;
+    background-color: #1d4ed8;
 }
 
 .download:hover {

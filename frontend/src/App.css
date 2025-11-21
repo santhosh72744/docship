@@ -1,7 +1,4 @@
-/* ============================================
-1. Global and Base Styles
-============================================ 
-*/
+
 :root {
   --primary: #4f46e5; /* Indigo 600 */
   --primary-dark: #4338ca; /* Indigo 700 */
@@ -17,7 +14,7 @@
   box-sizing: border-box;
 }
 
-/* Ensure the app fits the viewport height */
+
 html, body, #root {
   margin: 0;
   padding: 0;
@@ -27,10 +24,7 @@ html, body, #root {
   color: var(--text-dark);
 }
 
-/* ============================================
-2. Header and Main Container
-============================================ 
-*/
+
 .page-header {
   background-color: var(--primary);
   color: white;
@@ -55,24 +49,23 @@ html, body, #root {
 }
 
 .section-title {
-  font-size: 1.25rem;
+  font-size: 30px;
   font-weight: 600;
-  margin-bottom: 1.5rem;
+  margin-bottom: 10px;
   color: var(--primary-dark);
   border-bottom: 2px solid var(--border-color);
   padding-bottom: 0.5rem;
+  text-align: center;
 }
 
-/* ============================================
-3. Form Elements and Inputs (Generic)
-============================================ 
-*/
+
+
 label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  font-size: 0.9rem;
-  color: var(--text-light);
+  font-size: 20px;
+  color: blue;
 }
 
 input, select {
@@ -99,18 +92,14 @@ input:focus, select:focus {
   font-weight: 500;
 }
 
-/* ============================================
-4. Step 1 Layout (Estimate Container)
-============================================ 
-*/
 .estimate-container {
   display: flex;
-  flex-direction: column; /* Stacked on mobile */
+  flex-direction: column; 
   gap: 30px;
 }
 
 .estimate-left {
-  flex: 2; /* Takes more space on desktop */
+  flex: 2; 
 }
 
 .form-grid {
@@ -119,7 +108,7 @@ input:focus, select:focus {
   gap: 20px;
 }
 
-/* Desktop Layout for Step 1 */
+
 @media (min-width: 768px) {
   .estimate-container {
     flex-direction: row;
@@ -139,10 +128,7 @@ input:focus, select:focus {
   }
 }
 
-/* ============================================
-5. Courier Selection
-============================================ 
-*/
+
 .courier-row {
   display: flex;
   gap: 15px;
@@ -175,18 +161,15 @@ input:focus, select:focus {
   box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
 }
 
-/* ============================================
-6. Estimate Box (Right Side)
-============================================ 
-*/
+
 .estimate-right {
   padding: 20px;
-  background-color: #f0f4ff; /* Light primary background */
+  background-color: #f0f4ff; 
   border-radius: 12px;
   border: 1px solid var(--primary);
   text-align: center;
   position: sticky;
-  top: 20px; /* Keep it visible if there was scrolling */
+  top: 20px; 
 }
 
 .estimate-right h3 {
@@ -228,12 +211,7 @@ input:focus, select:focus {
   margin-top: 5px;
 }
 
-/* ============================================
-7. Buttons (Primary Actions)
-============================================ 
-*/
 
-/* General Action Button Style */
 .get-est-btn, .confirm-btn {
   display: block;
   width: 100%;
@@ -261,16 +239,10 @@ input:focus, select:focus {
 }
 
 .confirm-btn:hover {
-  background-color: #059669; /* Darker secondary */
+  background-color: #059669; 
 }
 
-/* Reset Button (Styled inline in App.js, but matching colors here) */
-/* The inline style is simple and good, no need to override it here. */
 
-/* ============================================
-8. Step Navigator (Placeholder Styles)
-============================================ 
-*/
 .step-nav-container {
   display: flex;
   justify-content: center;
@@ -324,12 +296,10 @@ input:focus, select:focus {
 
 @media (max-width: 600px) {
   .step-item span {
-    display: none; /* Hide text label on very small screens */
+    display: none; 
   }
 }
-/* ============================
-   MODAL OVERLAY
-============================ */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -344,9 +314,6 @@ input:focus, select:focus {
   backdrop-filter: blur(2px);
 }
 
-/* ============================
-   MODAL BOX
-============================ */
 .modal-box {
   background: #ffffff;
   width: 90%;
@@ -369,9 +336,7 @@ input:focus, select:focus {
   }
 }
 
-/* ============================
-   CLOSE BUTTON (X)
-============================ */
+
 .close-btn {
   position: absolute;
   top: 12px;
@@ -387,9 +352,7 @@ input:focus, select:focus {
   color: #000;
 }
 
-/* ============================
-   MODAL TITLE
-============================ */
+
 .modal-box h2 {
   text-align: center;
   margin-bottom: 16px;
@@ -398,9 +361,7 @@ input:focus, select:focus {
   color: #111;
 }
 
-/* ============================
-   PIN CODE LIST
-============================ */
+
 .pin-list {
   list-style: none;
   padding-left: 0;
@@ -423,7 +384,7 @@ input:focus, select:focus {
   color: #222;
 }
 
-/* Scrollbar */
+
 .pin-list::-webkit-scrollbar {
   width: 6px;
 }
@@ -433,9 +394,7 @@ input:focus, select:focus {
   border-radius: 10px;
 }
 
-/* ============================
-   CLOSE BUTTON (BOTTOM)
-============================ */
+
 .modal-close-btn {
   width: 100%;
   background: #584fd9;

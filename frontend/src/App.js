@@ -50,9 +50,7 @@ function App() {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [paymentRef, setPaymentRef] = useState("");
 
-  // ======================================================
-  // LOAD SAVED DATA
-  // ======================================================
+
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("docshipData"));
@@ -75,9 +73,7 @@ function App() {
     } catch {}
   }, []);
 
-  // ======================================================
-  // SAVE TO LOCAL STORAGE
-  // ======================================================
+
   useEffect(() => {
     const payload = {
       currentStep,
@@ -112,9 +108,7 @@ function App() {
     paymentRef,
   ]);
 
-  // ======================================================
-  // RESET EVERYTHING
-  // ======================================================
+ 
   const resetAll = () => {
     setShippingType("document");
     setSourceCountry("USA");
@@ -159,9 +153,6 @@ function App() {
     setCurrentStep(1);
   };
 
-  // ======================================================
-  // VALIDATE STEP 1
-  // ======================================================
   const validate = async () => {
     const { valid, errors: e } = await validateInputs({
       shippingType,
@@ -176,9 +167,6 @@ function App() {
     return valid;
   };
 
-  // ======================================================
-  // GET ESTIMATE
-  // ======================================================
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!(await validate())) return;
@@ -220,30 +208,44 @@ function App() {
     setTrackingNumber(saveData.tracking);
   };
 
-  // ======================================================
-  // PAYMENT NEXT
-  // ======================================================
+
   const handlePaymentNext = async () => {
-    const res = await fetch("http://localhost:5000/api/save-payment", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        cardNumber: paymentForm.cardNumber,
-        name: paymentForm.name,
-        expiry: paymentForm.expiry,
-        amount: details.inr,
-        trackingNumber,
-      }),
-    });
 
-    const data = await res.json();
-    setPaymentRef(data.paymentRef);
-    setCurrentStep(4);
-  };
+  // 1. Save shipment 
+  const saveRes = await fetch("http://localhost:5000/api/save-shipment", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      pickup,
+      toAddr,
+      courier: chooseCourier,
+      amount: details.inr,
+      days: details.days,
+    }),
+  });
 
-  // ======================================================
-  // Supported PIN list (Modal)
-  // ======================================================
+  const saveData = await saveRes.json();
+  setTrackingNumber(saveData.tracking);
+
+  // 2. Save payment
+  const res = await fetch("http://localhost:5000/api/save-payment", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      trackingNumber: saveData.tracking,
+      amount: details.inr,
+      ...paymentForm
+    }),
+  });
+
+  const data = await res.json();
+  setPaymentRef(data.paymentRef);
+
+  setCurrentStep(4);
+};
+
+
+
   const supportedPins = [
     { city: "New Delhi", range: "110001 – 110097" },
     { city: "Mumbai", range: "400001 – 400014" },
@@ -267,7 +269,7 @@ function App() {
       <header className="page-header">Parcel My Box</header>
       <StepNavigator currentStep={currentStep} onStepClick={setCurrentStep} />
 
-      {/* ⭐ Supported PIN Modal */}
+    
       {modalOpen && (
         <div className="modal-overlay">
           <div className="modal-box">
@@ -292,32 +294,15 @@ function App() {
       <div className="doc">
         <hr style={{ margin: "20px 0" }} />
 
-        {/* STEP 1 */}
         {currentStep === 1 && (
           <div className="estimate-container">
 
-            {/* RESET */}
-            <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "10px" }}>
-              <button
-                type="button"
-                onClick={resetAll}
-                style={{
-                  background: "#584fd9",
-                  color: "white",
-                  padding: "6px 14px",
-                  borderRadius: "6px",
-                  border: "none",
-                  cursor: "pointer",
-                  fontWeight: "bold",
-                }}
-              >
-                Reset
-              </button>
-            </div>
+          
+          
 
             {/* FORM */}
             <form onSubmit={handleSubmit} className="estimate-left" noValidate>
-              <h2 className="section-title">1. Get Shipment Estimate</h2>
+              <h2 className="section-title">DocShip</h2>
 
               <div className="form-grid">
                 <div>
@@ -377,8 +362,9 @@ function App() {
                 </div>
               </div>
 
-              {/* COURIER SELECT */}
+      
               <div className="courier-row">
+            
                 <button
                   type="button"
                   onClick={() => setChooseCourier("fedex")}
@@ -401,7 +387,7 @@ function App() {
               </button>
             </form>
 
-            {/* ESTIMATE BOX */}
+          
             {details && (
               <div className="estimate-right">
                 <h3>Shipment Estimation</h3>
@@ -417,14 +403,14 @@ function App() {
                 </div>
 
                 <button className="confirm-btn" onClick={() => setCurrentStep(2)}>
-                  Confirm & Continue (Step 2)
+                  Confirm & Continue
                 </button>
               </div>
             )}
           </div>
         )}
 
-        {/* STEP 2 */}
+      
         {currentStep === 2 && (
           <CheckoutForm
             pickup={pickup}
@@ -435,7 +421,7 @@ function App() {
           />
         )}
 
-        {/* STEP 3 */}
+    
         {currentStep === 3 && (
           <PaymentModal
             amount={details?.inr}
@@ -446,7 +432,7 @@ function App() {
           />
         )}
 
-        {/* STEP 4 */}
+      
         {currentStep === 4 && (
           <ShippingLabel
             amount={details.inr}

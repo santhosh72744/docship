@@ -148,7 +148,7 @@ export default function ShippingLabel({
       {showSuccess && (
         <div className="success-box">
           <h2>✅ Shipment Successful!</h2>
-          <p>Your shipment has been booked successfully.</p>
+          <p>Your shipment has been placed successfully.</p>
 
           <div className="success-actions">
             <button className="close-btn" onClick={onFinish}>

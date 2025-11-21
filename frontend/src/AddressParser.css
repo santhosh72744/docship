@@ -1,16 +1,14 @@
-/* --- Variables Fallback --- */
-/* Uses variables defined in App.css, providing fallbacks for safety */
+
 :root {
     --color-primary: #4f46e5;
     --color-text: #1f2937;
     --color-border: #d1d5db;
 }
 
-/* --- Address Parser Container --- */
 .address-parser {
-    /* Overriding inline style for flex: 1 and adding visual structure */
+    
     padding: 1.5rem;
-    background-color: white; /* White background for separation */
+    background-color: white; 
     border-radius: 12px;
     border: 1px solid var(--color-border);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
@@ -18,27 +16,27 @@
 }
 
 .address-parser h2 {
-    font-size: 1.25rem; /* text-xl */
+    font-size: 1.25rem; 
     font-weight: 700;
     color: var(--color-primary);
     margin-top: 0;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid rgba(79, 70, 229, 0.15); /* Light line separator */
+    border-bottom: 2px solid rgba(79, 70, 229, 0.15); 
 }
 
-/* --- Text Area Styling --- */
+
 .address-parser textarea {
-    /* Resetting and enhancing inline styles */
+    
     width: 100%;
     padding: 0.75rem;
     border: 1px solid var(--color-border);
     border-radius: 8px;
     font-size: 1rem;
-    resize: vertical; /* Allow vertical resizing by user */
+    resize: vertical; 
     transition: border-color 0.2s, box-shadow 0.2s;
     outline: none;
-    font-family: 'Inter', sans-serif; /* Maintain consistent font */
+    font-family: 'Inter', sans-serif; 
 }
 
 .address-parser textarea:focus {
@@ -46,7 +44,6 @@
     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
 }
 
-/* --- Button Group --- */
 .address-parser > div {
     margin-top: 1rem;
     display: flex;
@@ -60,10 +57,9 @@
     cursor: pointer;
     transition: background-color 0.2s, transform 0.1s;
     border: none;
-    flex-shrink: 0; /* Prevent buttons from shrinking */
+    flex-shrink: 0; 
 }
 
-/* Parse Button (Primary Action) */
 .address-parser button:first-child {
     background-color: var(--color-primary);
     color: white;
@@ -75,20 +71,19 @@
     transform: translateY(-1px);
 }
 
-/* Clear Button (Secondary Action) */
 .address-parser button:last-child {
-    background-color: #e5e7eb; /* Gray 200 */
+    background-color: #e5e7eb; 
     color: var(--color-text);
     border: 1px solid var(--color-border);
 }
 
 .address-parser button:last-child:hover {
-    background-color: #d1d5db; /* Gray 300 */
+    background-color: #d1d5db; 
 }
 
-/* --- Mobile Adjustments --- */
+
 @media (max-width: 768px) {
     .address-parser {
-        margin-right: 0 !important; /* Remove the 10px inline margin on small screens */
+        margin-right: 0 !important;
     }
 }

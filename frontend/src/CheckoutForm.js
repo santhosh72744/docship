@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { validateCheckout } from "./validations";
 import "./CheckoutForm.css";
 
 /* -----------------------------------
-   INLINE ADDRESS PARSER (COMBINED)
+   INLINE ADDRESS PARSER HELPERS
 ----------------------------------- */
 
 const STATES = [
@@ -62,7 +62,13 @@ function parseIndianAddress(raw) {
   const city = extractCity(text);
   const fullName = guessName(text);
 
-  let unmapped = removeSegments(text, [phoneNumber, pinCode, state, city, fullName]);
+  let unmapped = removeSegments(text, [
+    phoneNumber,
+    pinCode,
+    state,
+    city,
+    fullName,
+  ]);
   unmapped = unmapped.replace(/^[,.\s-]+|[,.\s-]+$/g, "");
 
   return {
@@ -97,7 +103,7 @@ export default function CheckoutForm({
       address1: data.unmappedText || "",
       city: data.city || "",
       state: data.state || "",
-      zip: data.pinCode || pickup.zip,
+      zip: pickup.zip, // do NOT overwrite USA ZIP
     });
   };
 
@@ -119,25 +125,48 @@ export default function CheckoutForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { valid, errors: valErrors } = await validateCheckout({ pickup, toAddr });
+    const { valid, errors: valErrors } = await validateCheckout({
+      pickup,
+      toAddr,
+    });
+
+    console.log("VALIDATION ERRORS:", valErrors);
+
     setErrors(valErrors);
 
     if (valid) onNext();
   };
+useEffect(() => {
+  if (pickup.zip === "" && localStorage.getItem("docshipData")) {
+    const saved = JSON.parse(localStorage.getItem("docshipData"));
+    if (saved.zipCode) {
+      setPickup(prev => ({ ...prev, zip: saved.zipCode }));
+    }
+  }
+
+  if (toAddr.pin === "" && localStorage.getItem("docshipData")) {
+    const saved = JSON.parse(localStorage.getItem("docshipData"));
+    if (saved.pinCode) {
+      setToAddr(prev => ({ ...prev, pin: saved.pinCode }));
+    }
+  }
+}, []);
+
 
   return (
     <div className="checkout-container">
-
       <h2 className="title">Complete Shipment Details</h2>
 
-      {/* ----------- TOP PARSER BOXES ----------- */}
+      {/* PARSER BOXES */}
       <div className="parser-row">
         <div className="parser-box">
           <h3>From Address</h3>
           <textarea
             className="parser-input"
             placeholder="Paste address here"
-            onChange={(e) => handleParseFrom(parseIndianAddress(e.target.value))}
+            onChange={(e) =>
+              handleParseFrom(parseIndianAddress(e.target.value))
+            }
           />
         </div>
 
@@ -151,63 +180,94 @@ export default function CheckoutForm({
         </div>
       </div>
 
-      {/* ----------- FORM SIDE BY SIDE ----------- */}
+      {/* FORM GRID */}
       <form className="form-grid" onSubmit={handleSubmit}>
-
-        {/* ----------------- FROM BLOCK ----------------- */}
+        {/* FROM BLOCK */}
         <fieldset>
           <legend>From Address</legend>
 
           <label>Name</label>
-          <input value={pickup.name} onChange={onChange(pickup, setPickup, "name")} />
+          <input
+            value={pickup.name}
+            onChange={onChange(pickup, setPickup, "name")}
+          />
           {errors.pickupName && <p className="error">{errors.pickupName}</p>}
 
           <label>Phone</label>
-          <input value={pickup.phone} onChange={onChange(pickup, setPickup, "phone")} />
+          <input
+            value={pickup.phone}
+            onChange={onChange(pickup, setPickup, "phone")}
+          />
           {errors.pickupPhone && <p className="error">{errors.pickupPhone}</p>}
 
-          <label>Address</label>
-          <input value={pickup.address1} onChange={onChange(pickup, setPickup, "address1")} />
+       
 
-          <label>City</label>
-          <input value={pickup.city} onChange={onChange(pickup, setPickup, "city")} />
-
-          <label>State</label>
-          <input value={pickup.state} onChange={onChange(pickup, setPickup, "state")} />
+         
 
           <label>ZIP</label>
-          <input value={pickup.zip} maxLength="5" onChange={onChange(pickup, setPickup, "zip")} />
+          <input
+            value={pickup.zip}
+            maxLength="5"
+            onChange={onChange(pickup, setPickup, "zip")}
+          />
+          {errors.pickupZip && <p className="error">{errors.pickupZip}</p>}
         </fieldset>
 
-        {/* ----------------- TO BLOCK ----------------- */}
+        {/* TO BLOCK */}
         <fieldset>
           <legend>To Address</legend>
 
           <label>Name</label>
-          <input value={toAddr.name} onChange={onChange(toAddr, setToAddr, "name")} />
+          <input
+            value={toAddr.name}
+            onChange={onChange(toAddr, setToAddr, "name")}
+          />
+          {errors.toName && <p className="error">{errors.toName}</p>}
 
           <label>Phone</label>
-          <input value={toAddr.phone} onChange={onChange(toAddr, setToAddr, "phone")} />
+          <input
+            value={toAddr.phone}
+            onChange={onChange(toAddr, setToAddr, "phone")}
+          />
+          {errors.toPhone && <p className="error">{errors.toPhone}</p>} {/* 🔥 FIXED */}
 
-          <label>Address</label>
-          <input value={toAddr.address1} onChange={onChange(toAddr, setToAddr, "address1")} />
+         <label>State</label>
+          <input
+            value={toAddr.state}
+            onChange={onChange(toAddr, setToAddr, "state")}
+          />
+          {errors.toState && <p className="error">{errors.toState}</p>} 
 
           <label>City</label>
-          <input value={toAddr.city} onChange={onChange(toAddr, setToAddr, "city")} />
+          <input
+            value={toAddr.city}
+            onChange={onChange(toAddr, setToAddr, "city")}
+          />
+          {errors.toCity && <p className="error">{errors.toCity}</p>}
 
-          <label>State</label>
-          <input value={toAddr.state} onChange={onChange(toAddr, setToAddr, "state")} />
+          
 
           <label>PIN</label>
-          <input value={toAddr.pin} maxLength="6" onChange={onChange(toAddr, setToAddr, "pin")} />
+          <input
+            value={toAddr.pin}
+            maxLength="6"
+            onChange={onChange(toAddr, setToAddr, "pin")}
+          />
+          {errors.toPin && <p className="error">{errors.toPin}</p>}
 
           <label>Aadhaar</label>
-          <input value={toAddr.aadhaar} maxLength="12" onChange={onChange(toAddr, setToAddr, "aadhaar")} />
+          <input
+            value={toAddr.aadhaar}
+            maxLength="12"
+            onChange={onChange(toAddr, setToAddr, "aadhaar")}
+          />
+          {errors.aadhaar && <p className="error">{errors.aadhaar}</p>}
         </fieldset>
 
-        {/* ----------- BUTTON ----------- */}
         <div className="btn-row">
-          <button className="submit-btn">Continue to Payment</button>
+          <button type="submit" className="submit-btn">
+            Continue to Payment
+          </button>
         </div>
       </form>
     </div>

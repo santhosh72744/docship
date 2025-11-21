@@ -10,10 +10,6 @@
   --spacing-lg: 1.5rem;
 }
 
-/* ---------------------------------------------------------------------
- * MAIN NAV BAR
- * --------------------------------------------------------------------- */
-
 .step-nav {
   display: flex;
   justify-content: center;
@@ -31,9 +27,6 @@
   align-items: center;
 }
 
-/* ---------------------------------------------------------------------
- * STEP BUTTONS
- * --------------------------------------------------------------------- */
 
 .step-btn {
   padding: 0.5rem 0.75rem;
@@ -49,7 +42,6 @@
   pointer-events: none; /* Default state: not clickable */
 }
 
-/* Current Step (Active) */
 .step-btn.active {
   background-color: var(--color-primary);
   color: white;
@@ -57,7 +49,7 @@
   pointer-events: none;
 }
 
-/* Completed and Clickable Steps */
+
 .step-btn.clickable {
   color: var(--color-primary-dark);
   pointer-events: auto;
@@ -72,9 +64,6 @@
   transform: translateY(-1px);
 }
 
-/* ---------------------------------------------------------------------
- * ARROW DIVIDER
- * --------------------------------------------------------------------- */
 
 .step-arrow {
   font-size: 1.5rem;
@@ -83,9 +72,6 @@
   margin: 0 0.25rem;
 }
 
-/* ---------------------------------------------------------------------
- * RESPONSIVENESS (Stacking on very small screens if necessary)
- * --------------------------------------------------------------------- */
 
 @media (max-width: 600px) {
   .step-nav {
@@ -97,7 +83,7 @@
     font-size: 0.75rem;
   }
   .step-arrow {
-    display: none; /* Hide arrows on cramped screens */
+    display: none;
   }
   .step-wrapper {
     margin: 0 0.125rem;

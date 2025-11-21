@@ -90,15 +90,13 @@ export async function validateCheckout({ pickup, toAddr }) {
   // Pickup
   if (!pickup.name) e.pickupName = "Pickup name required";
   if (!isValidPhone(pickup.phone)) e.pickupPhone = "Enter valid phone number";
-  if (!pickup.address1) e.pickupAddr1 = "Pickup address required";
-  if (!pickup.city) e.pickupCity = "Pickup city required";
-  if (!pickup.state) e.pickupState = "Pickup state required";
+ 
   if (!isValidZIP(pickup.zip)) e.pickupZip = "Valid 5-digit ZIP required";
 
   // To Address
   if (!toAddr.name) e.toName = "Receiver name required";
   if (!isValidPhone(toAddr.phone)) e.toPhone = "Enter valid phone number";
-  if (!toAddr.address1) e.toAddr1 = "Receiver address required";
+ 
   if (!toAddr.city) e.toCity = "Receiver city required";
   if (!toAddr.state) e.toState = "Receiver state required";
 

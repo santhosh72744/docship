@@ -1,6 +1,4 @@
-/* ---------------------------------------------------------------------
- * UTILITY VARIABLES (Replicating App.css context)
- * --------------------------------------------------------------------- */
+
 :root {
   --color-primary: #4f46e5; /* Indigo */
   --color-primary-dark: #4338ca;
@@ -15,10 +13,6 @@
   --spacing-lg: 1.5rem;
 }
 
-/* ---------------------------------------------------------------------
- * MAIN MODAL CONTAINER
- * We make the modal content narrow and centered for focus.
- * --------------------------------------------------------------------- */
 
 .payment-step {
   max-width: 500px; /* Narrower than the CheckoutForm for focus */
@@ -38,7 +32,6 @@
   margin-bottom: var(--spacing-md);
 }
 
-/* Style for successful payment state */
 .payment-step h2.step-title:first-child {
     color: var(--color-success);
 }
@@ -54,9 +47,6 @@
   border-radius: 0.5rem;
 }
 
-/* ---------------------------------------------------------------------
- * PAYMENT FORM STYLES
- * --------------------------------------------------------------------- */
 
 .payment-form {
   display: flex;
@@ -88,16 +78,13 @@
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
 }
 
-/* Error style for consistency */
+
 .error {
   color: var(--color-error);
   font-size: 0.75rem;
   margin-top: 0.25rem;
 }
 
-/* ---------------------------------------------------------------------
- * ACTIONS (Buttons)
- * --------------------------------------------------------------------- */
 
 .actions {
   display: flex;
@@ -117,7 +104,6 @@
   transition: all 0.2s;
 }
 
-/* Back Button */
 .actions button:not(.sub) {
   background-color: white;
   color: var(--color-text-light);
@@ -129,7 +115,6 @@
   color: var(--color-primary);
 }
 
-/* Pay Now / Continue Button */
 .actions button.sub {
   background-color: var(--color-primary);
   color: white;
