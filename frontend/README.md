@@ -24,7 +24,7 @@ Allows user to  send documents from USA to India.
 # 1️⃣ Clone the repository
 git clone https://github.com/santhosh72744/docship
 
-# 2️⃣ Move into the project directory
+ 2️⃣ Move into the project directory
 cd docship
 
 # 3️⃣ Install dependencies
