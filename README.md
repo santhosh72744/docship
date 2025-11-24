@@ -158,7 +158,7 @@ Run development server
 ### Default frontend URL:
 
 http://localhost:3000
-
+## Click on image to watch
 [![Watch the video](thumbnail.png)](https://youtu.be/teEF_QlBv_g)
 
 
