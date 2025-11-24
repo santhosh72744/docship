@@ -159,7 +159,8 @@ Run development server
 
 http://localhost:3000
 
-[![Watch the video](https://img.youtube.com/vi/teEF_QlBv_g/hqdefault.jpg)](https://youtu.be/teEF_QlBv_g)
+[![Watch the video](thumbnail.png)](https://youtu.be/teEF_QlBv_g)
+
 
 
 
